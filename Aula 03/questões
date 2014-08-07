@@ -1,0 +1,156 @@
+ 
+UFRN ­ IMD ­ LP1
+ 
+Lista de exercícios (Aula03) 
+ 
+1. A chamada de função misterio(&i, &j)  tem um problema. Qual é? Antes da chamada, 
+temos a seguinte linha de comando: int i=6, j=10; 
+void misterio(int *p, int *q){ 
+   int *temp; 
+   *temp = *p; 
+   *p = *q; 
+   *q = *temp; 
+} 
+
+Eu crio um ponteiro, mas quando vou atribuir um valor a ele não é um endereço de memória, o código tenta acessar o conteudo do espaço de memória que ele faz referencia, o problema é que não há esse espaço. 
+ 
+ 
+2. O que as linhas abaixo fazem? Dica: Use o gdb para confirmar sua resposta. 
+int i=99,j;  
+int *p;  
+p = &i;  
+j = *p + 100; 
+
+Crio variável i com valor 99, e variável j. Crio um ponteiro p, e atribuo a ele o endereço de memória de i. Atribuo a j a soma do conteúdo do endereço de memória do ponteiro p mais 100.
+
+ 
+3. O que as linhas abaixo fazem? Dica: Use o gdb para confirmar sua resposta. 
+int a=5, b=12;  
+int *p; 
+int *q; 
+p = &a; 
+q = &b; 
+int c = *p + *q; 
+
+Cria a variável a com valor 5 e a variável b com valor 12. Crio o ponteiro p e q, e inicializo eles com o enredeço de memória de a e de b, respectivamente. Depois crio a variável int c, e armazeno dela a soma dos valores contidos nos endereços de memória dos ponteiros p e q.
+ 
+4. O que as linhas abaixo fazem? Dica: Use o gdb para confirmar sua resposta. 
+int i=7, j=3;  
+int *p;  
+int **r; 
+p = &i; 
+r = &p; 
+int c = **r + j; 
+
+Crio as variável i, com valor 7 e j, com valor 3. Crio o ponteiro p, e um ponteiro de ponteiro r. Ao ponteiro p eu atribuo o endereço de i e a r o endereço de p, depois crio a variável c que armazanará a soma do **r e de j, que será 10.
+ 
+5. Escreva uma função recursiva para determinar o menor elemento de um vetor não­ ordenado  
+de inteiros.   
+ 
+6. (mostrar) Dado o programa abaixo, completar as tabelas 1 e 2 manualmente, e em seguida, 
+utilizando o gdb: 
+
+main() { 
+   int i, j, *p_1, *p_2, **p_p_1, **p_p_2; 
+   i = 4;  j = 5; 
+   p_1 = &i; //p_1 = endereço de i que contem 4
+   p_2 = &j; //p_2 = endereço de j que contem 5
+   p_p_1 = &p_2; //p_p_1 = endereço de p_2 que contem o endereço de j que contem 5
+   p_p_2 = &p_1; //p_p_2 = endereço de p_1 que contem o endereço de i que contem 4
+}
+
+Tabela 1: 
+Variável  i  				j     			p_1   			p_2    		p_p_1   		p_p_2 
+Conteúdo  4  				5     			&i    			&j     		&p_2    		&p_1
+Endereço  1000  			1007  			1030  			1053   		1071    		1079 
+End. GDB  0x7fff8a07f8a8 0x7fff8a07f8ac 0x7fff8a07f8b0 0x7fff8a07f8b8 0x7fff8a07f8c0 0x7fff8a07f8c8
+      
+
+Tabela2: 
+Expressão  i  *p_2   &i    &p_2  **p_p_1  *p_p_2   &*p_1    j  *p_1  *&p_1 
+Resultado  4    5   1000   1053     5      1030     1000    5    4    1000
+
+ 
+7. Dado o programa abaixo, completar as tabelas 3 e 4 manualmente, e em seguida, utilizando 
+o gdb: 
+ 
+main() {  
+   int i, j, *p_1, *p_2, **p_3, ***p_4;  
+   i = 4;  
+   j = 5;  
+   p_1 = &j;  
+   p_2 = &i;  
+   p_3 = &p_1;  
+   p_4 = &p_3;  
+} 
+
+Tabela 3: 
+Variável  i  j   p_1  p_2   p_3   p_4 
+Conteúdo  4  5 	 &j   &i   &p_1  &p_3
+
+Endereço  1000  		 1007  			1030  		   1053  		  1071  	     1079 
+End. GDB  0x7fff54a4e338 0x7fff54a4e33c 0x7fff54a4e340 0x7fff54a4e348 0x7fff54a4e350 0x7fff54a4e358      
+ 
+Tabela 4: 
+Expressão  i  *p_2  &j 			    &p_2 			**p_3 	**p_4  			***p_4  *p_1    *&p_2  			*p_4 
+Resultado  4   4 	0x7fff54a4e33c  0x7fff54a4e348 	5 		0x7fff54a4e33c 	5 		 5 		0x7fff54a4e338 	0x7fff54a4e340
+
+ 
+8. Dado o Programa abaixo, completar as Tabelas 5 e 6 manualmente, e em seguida, utilizando 
+o gdb:  
+ 
+main()  
+{  
+ int i, j, *p_1, **p_2, **p_3, ***p_4;  
+ i = 4;  
+ j = 5;  
+ p_1 = &j;  
+ p_2 = &p_1;  
+ p_3 = p_2;  
+ p_4 = &p_3;  
+} 
+
+Tabela 5: 
+Variável  i  			 j    			p_1   		   p_2   		  p_3   		 p_4 
+Conteúdo  4  			 5  			&j    		   &p_1  		  p_2   		 &p_3
+Endereço  1000  		 1007  			1030  	   	   1053  		  1071  		 1079 
+End. GDB  0x7fffffffdcd8 0x7fffffffdcdc 0x7fffffffdce0 0x7fffffffdce8 0x7fffffffdcf0 0x7fffffffdce8
+
+ 
+Tabela 6: 
+Expressão  i  *p_2   &j 			  &p_2 				**p_3  **p_4  			***p_4  *p_1  *&p_2  			*p_4 
+Resultado  4    4    0x7fffffffdcdc   0x7fffffffdce8	5	   0x7fffffffdce0	5		 5	   0x7fffffffdcd8	 0x7fffffffdce0
+
+ 
+9. Dado o Programa abaixo, completar as Tabelas 7 e 8 manualmente, e em seguida, usando o 
+gdb:  
+
+main() {  
+	 int i, *p_1, *p_2, v[10];  
+	 p_1 = v;  
+	 p_2 = p_1;  
+	 for (i = 0; i < 10; i++)  
+	 { 
+	 	v[i] = (2*i)+1; p_2++; 
+	 }  
+	 for (i = 0; i < 10; i++)  
+	 { 
+	 	p_2­­--; std::cout << “ [“ << *p_2 << “] “ ; 
+	 }  
+} 
+ 
+Tabela 7: 
+Variável  v[0]  v[1]  v[2]  v[3]  v[4]  v[5]  v[6]  v[7]  v[8]  v[9]   
+Conteúdo   1     3;    5     7     9     11    13    15    17    19                   
+Endereço  5000                     
+End. GDB  0x7fffffffdcf0 0x7fffffffdcf4 0x7fffffffdcf8 0x7fffffffdcfc 0x7fffffffdd00 0x7fffffffdd04 0x7fffffffdd08 0x7fffffffdd0c 0x7fffffffdd10 0x7fffffffdd10
+
+Tabela 8 (Valores impressos com: std::cout << “ [“ << *p_2 << “] “ ; ) .  
+ 
+ 
+valor de i    0  	1  	  2  	3  	  4  	5  	6  	  7    8  	9  
+*p_2        [ 19] [ 17] [ 15] [ 13] [ 11] [ 9] [ 7] [ 5] [ 3] [ 1]
+ 
+ 
+
+ 

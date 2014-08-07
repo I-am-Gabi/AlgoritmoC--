@@ -1,0 +1,8 @@
+Pegar as buscas sequencial recursiva, binária recursava, fazer interativa e comparar.
+
+Escreva uma função recursiva que permita somar os elementos de um vetor de inteiro
+crie uma função recursiva que receba dois inteiros positivos k e n, e calcule k^n. Só pode usar a mutiplicação
+escreva uma função recursiva que inverta o número inteiro
+escreva uma função recursiva por subtração sucessiva
+
+Transforme tudo para interativa
