@@ -3,21 +3,35 @@
 
 using namespace std;
 
-int invert(int k) { 
-	//if (k == 0) return 0;
-	//else return ( (k%10)*10 + (invert(k/10)));
-	int ult = 0;
-	for (int i = 0; i < 4; i++)
-	{
-		ult = ult + k%10;
-		ult = ult * 10;
-		k = k/10;
+int invert(int k, int ult, int i) {   
+	//cout << ((k%(i*10)-k%i)/i) << " " << ult << " " << i*10 << " " << endl;
+	if (i > k) return ult;
+	else  
+	{ 
+		//ult = (ult*i)  + ((k%(i*10)-k%i)/i);
+		return invert(k, (ult*i)  + ((k%(i*10)-k%i)/i), i*10);
 	}
-	return ult;
 } 
 
 int main() {  
-	cout << invert(1234) << endl;
+	cout << invert(123, 0, 1) << endl;
 }
+  
 
- 
+/*int ult = 0;
+for (int i = 0; i < 4; i++)
+{
+	ult = ult*10 + k%10; 
+	k = k/10;
+}
+return ult;
+
+while(i <= k)
+	{
+		ult *= 10;
+		ult += (k%(i*10)-k%i)/i; 
+		i *= 10;
+	}
+	return ult;
+
+*/
